@@ -1,0 +1,4 @@
+* dinghy
+
+Dinghy is a collection of one-size-fits-all package files and tools
+for building Emacs packages.
