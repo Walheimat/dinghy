@@ -27,7 +27,7 @@ package-install: $(DIST_DIR)
 clean-install: clean install
 
 .PHONY: ci
-ci: .cask
+ci: .cask $(CI_DEPS)
 
 .PHONY: local
 local: $(LOCAL_DEPS) $(LOCAL_PHONY_DEPS)
