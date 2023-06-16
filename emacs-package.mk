@@ -30,7 +30,7 @@ clean-install: clean install
 ci: .cask
 
 .PHONY: local
-local: $(LOCAL_DEPS)
+local: $(LOCAL_DEPS) $(LOCAL_PHONY_DEPS)
 
 $(DIST_DIR): .cask
 	cask build
