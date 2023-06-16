@@ -1,6 +1,7 @@
 COVERAGE_DIR?=coverage
 DINGHY_DIR?=dinghy
 DIST_DIR?=dist
+LOCAL_DEPS?=$(DIST_DIR)
 EMACS?=emacs
 PACKAGE_SUFFIX?=el
 PACKAGE_VERSION=$(shell cask version)
@@ -29,7 +30,7 @@ clean-install: clean install
 ci: .cask
 
 .PHONY: local
-local: $(DIST_DIR)
+local: $(LOCAL_DEPS)
 
 $(DIST_DIR): .cask
 	cask build
@@ -63,7 +64,7 @@ coverage: test
 .PHONY: clean
 clean:
 	cask clean-elc
-	rm -rf $(DIST_DIR)
+	rm -rf $(LOCAL_DEPS)
 
 .PHONY: clobber
 clobber: clean
