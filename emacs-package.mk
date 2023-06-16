@@ -65,7 +65,3 @@ coverage: test
 clean:
 	cask clean-elc
 	rm -rf $(LOCAL_DEPS)
-
-.PHONY: clobber
-clobber: clean
-	rm -rf .cask
