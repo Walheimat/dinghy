@@ -65,3 +65,10 @@ coverage: test
 clean:
 	cask clean-elc
 	rm -rf $(LOCAL_DEPS)
+
+# -- Utility
+
+.PHONY: update-version
+update-version:
+	$(UPDATE_VERSION) Cask
+	$(UPDATE_VERSION) $(PACKAGE_NAME).el
