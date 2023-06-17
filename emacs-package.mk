@@ -69,6 +69,5 @@ clean:
 # -- Utility
 
 .PHONY: update-version
-update-version:
+update-version: $(UPDATE_VERSION_DEPS)
 	$(UPDATE_VERSION) Cask
-	$(UPDATE_VERSION) $(PACKAGE_NAME).el
