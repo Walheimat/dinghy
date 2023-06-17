@@ -1,4 +1,111 @@
 * dinghy
 
 Dinghy is a collection of one-size-fits-all package files and tools
-for building Emacs packages.
+for building Cask-based Emacs packages.
+
+*** Installation
+
+The idea ist to add this repo as a submodule.
+
+#+begin_src sh
+git submodule add https://github.com/Walheimat/dinghy.git
+git submodule update
+#+end_src
+
+If you add =dinghy= using a different name, make sure to set =DINGHY_DIR=
+in your Makefile accordingly.
+
+
+*** Usage
+
+Say you have such an Emacs package called =my-package.el=. You
+could now create a Makefile with the following contents.
+
+#+begin_src makefile
+PACKAGE_NAME=my-package
+
+include dinghy/emacs-package.mk
+#+end_src
+
+This would give you access to the following goals:
+
+- install
+- clean-install
+- ci
+- local
+- test
+- local-test
+- coverage
+- clean
+- update-version
+
+The default goal =install= will depend on =ci= if =CI= env is set (by GitHub
+Actions for example) otherwise on =local=.
+
+Goal =clean-install= runs =clean= then =install=.
+
+The =ci= goal by default will make sure =.cask= exists. If you have
+additional dependencies. You can set =CI_DEPS=.
+
+The =local= goal by default depends on =DIST_DIR= which itself defaults to
+the =dist= directory created by cask. You can set =LOCAL_DEPS= and
+=LOCAL_PHONY_DEPS= yourself if you need additional targets. Note that
+=LOCAL_DEPS= get deleted as part of the =clean= goal.
+
+The =package-install= goal will use =package-install-file= on the =cask
+package= result. If you have a multi-file package, you will need to set
+=PACKAGE_SUFFIX= to =tar= (it defaults to =el=).
+
+The =test= goal by default calls =cask exec ert-runner=, meaning you need
+to add that to your Cask dependencies.
+
+#+begin_src emacs-lisp
+(development
+ ;; Your other dependencies
+ (depends-on "ert-runner"))
+#+end_src
+
+You can alternatively set =ERT_RUN= to use =ert-run-tests-batch=. This
+still requires you to have a test directory (=TEST_DIR=) that includes a
+=test-helper.el= file to set up everything before running tests.
+
+The =ert-runner= execution can be controlled using =TEST_PRE_ARGS= and
+=TEST_ARGS=. =TEST_PRE_ARGS= is set to =COVERAGE_WITH_JSON=true= in goal
+=coverage= as this tells my test package =bydi= to set up =undercover= to
+create JSON coverage instead of text coverage.
+
+Goal =local-test= is the same as =test= but it will =cat= the results of an
+=undercover= run.
+
+Goal =clean= runs =cask clean-elc= and removes local dependencies
+(=LOCAL_DEPS=).
+
+You can also use script =src/update-version.sh= using goal
+=update-version=. It accepts additional dependencies using
+=UPDATE_VERSION_DEPS=.
+
+#+begin_src makefile
+PACKAGE_NAME=my-package
+
+UPDATE_VERSION_DEPS=more-updates
+
+include dinghy/emacs-package.mk
+
+.PHONY: more-updates
+more-updates:
+   $(UPDATE_VERSION) my-package.el
+   $(UPDATE_VERISON) my-sub-package.el
+#+end_src
+
+Please also have a look at my various Emacs packages for usage
+examples.
+
+**** Scripts
+
+The script =update-version= will update version strings from the
+previous version to the current version as described by =git=. So if
+your most recent tag was =v1.0.0= and your new tag is =v1.1.0=, you can
+use the script to update =v1.0.0= in all desired files.
+
+The script will not do anything if it can't find enough tags, or if
+the old tag can't be found in one of the desired files.
