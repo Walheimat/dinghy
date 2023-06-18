@@ -82,7 +82,9 @@ Goal =clean= runs =cask clean-elc= and removes local dependencies
 
 You can also use script =src/update-version.sh= using goal
 =update-version=. It accepts additional dependencies using
-=UPDATE_VERSION_DEPS=.
+=UPDATE_VERSION_DEPS= which defaults to updating the package file.
+
+If you need to update several files, you need to set your own goal.
 
 #+begin_src makefile
 PACKAGE_NAME=my-package

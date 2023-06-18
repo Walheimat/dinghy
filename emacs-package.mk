@@ -7,6 +7,7 @@ PACKAGE_SUFFIX?=el
 PACKAGE_VERSION=$(shell cask version)
 TEST_DIR?=test
 UPDATE_VERSION=$(DINGHY_DIR)/scripts/update-version.sh
+UPDATE_VERSION_DEPS?=update-package-file
 
 # Run `make V=1 {cmd}` to print commands
 $(V).SILENT:
@@ -71,3 +72,7 @@ clean:
 .PHONY: update-version
 update-version: $(UPDATE_VERSION_DEPS)
 	$(UPDATE_VERSION) Cask
+
+.PHONY: update-package-file
+update-package-file:
+	$(UPDATE_VERSION) $(PACKAGE_NAME).el
