@@ -93,6 +93,16 @@
 
       (should (equal '("wal-dotest.el" "wal-useme.el") (dinghy-pacify-check--get-package-files))))))
 
+(ert-deftest dp-check--get-package-files--returns-if-no-filter ()
+  (defvar dinghy-pacify-check--not-testable)
+
+  (let ((dinghy-pacify-not-testable nil))
+
+    (bydi ((:mock shell-command-to-string :return "wal-notest.el\nwal-do-leaveme.el\n"))
+
+      (should (equal '("wal-notest.el" "wal-do-leaveme.el") (dinghy-pacify-check--get-package-files))))))
+
+
 (defvar dinghy-pacify--errors)
 (defvar dinghy-pacify--warnings)
 (defvar dinghy-pacify--debugs)

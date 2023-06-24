@@ -47,6 +47,7 @@ This would give you access to the following goals:
 - coverage
 - clean
 - update-version
+- pacify
 
 The default goal =install= will depend on =ci= if =CI= env is set (by GitHub
 Actions for example) otherwise on =local=.

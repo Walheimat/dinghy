@@ -105,16 +105,16 @@
          (names (split-string trimmed "\n")))
 
     (if (stringp dp-not-testable)
-        (seq-filter
-         (lambda (it) (not (string-match dp-not-testable it)))
-         names)
+        (progn
+          (message "Filtering files matching %s" dp-not-testable)
+          (seq-filter
+           (lambda (it) (not (string-match dp-not-testable it)))
+           names))
       names)))
 
 (defun dp-check ()
   "Check all package files."
   (message "Checking package files with `flymake'")
-  (when (stringp dp-not-testable)
-    (message "Filtering files matching %s" dp-not-testable))
 
   (condition-case err
       (dolist (it (dp-check--get-package-files))
