@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Variable `UPDATE_VERSION_DEPS` now defaults to `update-package-file`
   which is a new phony goal that will update the Emacs Lisp file of
   the package.
+- Goal `local-test` was removed in favor of a conditional in `test`
+  that will `cat` the coverage results if `CI` is not set and the file
+  exists.
 
 ## [v0.1.0]
 

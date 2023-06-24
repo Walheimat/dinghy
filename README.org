@@ -43,7 +43,6 @@ This would give you access to the following goals:
 - ci
 - local
 - test
-- local-test
 - coverage
 - clean
 - update-version
@@ -84,8 +83,8 @@ The =ert-runner= execution can be controlled using =TEST_PRE_ARGS= and
 =coverage= as this tells my test package =bydi= to set up =undercover= to
 create JSON coverage instead of text coverage.
 
-Goal =local-test= is the same as =test= but it will =cat= the results of an
-=undercover= run.
+If =CI= is not set, =test= will also =cat= the results of the text coverage
+(if it exists).
 
 Goal =clean= runs =cask clean-elc= and removes local dependencies
 (=LOCAL_DEPS=).

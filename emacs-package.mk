@@ -42,7 +42,6 @@ $(DIST_DIR): .cask
 
 # -- Checks
 
-# Run tests using cask
 .PHONY: test
 test: .cask
 	mkdir -p $(COVERAGE_DIR)
@@ -51,10 +50,9 @@ ifdef ERT_RUN
 else
 	$(TEST_PRE_ARGS) cask exec ert-runner $(TEST_ARGS)
 endif
-
-.PHONY: local-test
-local-test: test
-	cat $(COVERAGE_DIR)/results.txt
+ifndef CI
+	[ -f $(COVERAGE_DIR)/results.txt ] || exit 0 && cat $(COVERAGE_DIR)/results.txt
+endif
 
 .PHONY: coverage
 coverage: TEST_PRE_ARGS=COVERAGE_WITH_JSON=true

@@ -1,6 +1,2 @@
-((nil . ((wal-project-test-default-cmd . "make local-test")
-         (wal-project-build-default-cmd . "make local")
-         (wal-project-clean-default-cmd . "make clean")
-         (wal-project-install-default-cmd . "make project-install")
-         (find-sibling-rules . (("test/\\([^/]+\\)-test.el" "\\1.el")
+((nil . ((find-sibling-rules . (("test/\\([^/]+\\)-test.el" "\\1.el")
                                 ("\\([^/]+\\).el" "test/\\1-test.el"))))))
