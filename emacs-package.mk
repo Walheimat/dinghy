@@ -79,4 +79,4 @@ update-package-file:
 
 .PHONY: pacify
 pacify: $(PACIFY_DEPS)
-	$(EMACS) -l ./dinghy-pacify.el -f dinghy-pacify-check
+	cask $(EMACS) --batch -L . -l $(DINGHY_DIR)/dinghy-pacify.el -f dinghy-pacify-check
