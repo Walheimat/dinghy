@@ -1,5 +1,14 @@
 * dinghy
 
+#+BEGIN_HTML
+<a href='https://coveralls.io/github/Walheimat/dinghy?branch=trunk'>
+    <img
+        src='https://coveralls.io/repos/github/Walheimat/dinghy/badge.svg?branch=trunk'
+        alt='Coverage Status'
+    />
+</a>
+#+END_HTML
+
 Dinghy is a collection of one-size-fits-all package files and tools
 for building Cask-based Emacs packages.
 
