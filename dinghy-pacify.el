@@ -113,6 +113,8 @@
 (defun dp-check ()
   "Check all package files."
   (message "Checking package files with `flymake'")
+  (when (stringp dp-not-testable)
+    (message "Filtering files matching %s" dp-not-testable))
 
   (condition-case err
       (dolist (it (dp-check--get-package-files))
