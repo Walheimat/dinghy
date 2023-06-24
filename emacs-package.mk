@@ -76,3 +76,7 @@ update-version: $(UPDATE_VERSION_DEPS)
 .PHONY: update-package-file
 update-package-file:
 	$(UPDATE_VERSION) $(PACKAGE_NAME).el
+
+.PHONY: pacify
+pacify: $(PACIFY_DEPS)
+	$(EMACS) -l ./dinghy-pacify.el -f dinghy-pacify-check
