@@ -102,6 +102,21 @@ more-updates:
 Please also have a look at my various Emacs packages for usage
 examples.
 
+You can also check your package files with =flymake= using goal =pacify=.
+It will use =elisp-flymake-byte-compile= and =elisp-flymake-checkdock=.
+Set =PACIFY_DEPS= if you need them. You can also set =PACIFY_PRE_EXEC= for
+setups.
+
+For example, you could set =dinghy-pacify-not-testable= to a regular
+expression to ignore files matching the pattern.
+
+#+begin_src makefile
+PACIFY_DEPS=dist
+PACIFY_PRE_EXEC=--eval "(setq dinghy-pacify-not-testable \"ignore\\\|untestable\")"
+
+include dinghy/emacs-package.mk
+#+end_src
+
 **** Scripts
 
 The script =update-version= will update version strings from the

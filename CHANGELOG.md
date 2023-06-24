@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Usage section to README.
+- Goal `pacify` that uses `dinghy-pacify` package (extracted from my
+  configuration).
+- A GitHub workflow.
 
 ### Changed
 
