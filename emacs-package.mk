@@ -1,16 +1,19 @@
-COVERAGE_DIR?=coverage
-DINGHY_DIR?=dinghy
-DIST_DIR?=dist
-LOCAL_DEPS?=$(DIST_DIR)
+# -- Variables
+
 EMACS?=emacs
-PACKAGE_SUFFIX?=el
-PACKAGE_VERSION=$(shell cask version)
+
+DINGHY_DIR?=dinghy
 TEST_DIR?=test
-UPDATE_VERSION=$(DINGHY_DIR)/scripts/update-version.sh
+COVERAGE_DIR?=coverage
+DIST_DIR?=dist
+
+LOCAL_DEPS?=$(DIST_DIR)
 UPDATE_VERSION_DEPS?=update-package-file
 
-# Run `make V=1 {cmd}` to print commands
-$(V).SILENT:
+PACKAGE_SUFFIX?=el
+PACKAGE_VERSION=$(shell cask version)
+
+UPDATE_VERSION=$(DINGHY_DIR)/scripts/update-version.sh
 
 # -- Default goal
 
@@ -78,3 +81,6 @@ update-package-file:
 .PHONY: pacify
 pacify: $(PACIFY_DEPS)
 	cask $(EMACS) --batch -L . -l $(DINGHY_DIR)/dinghy-pacify.el $(PACIFY_PRE_EXEC) -f dinghy-pacify-check
+
+# Run `make V=1 {cmd}` to print commands
+$(V).SILENT:
