@@ -75,8 +75,8 @@ to add that to your Cask dependencies.
 #+end_src
 
 You can alternatively set =ERT_RUN= to use =ert-run-tests-batch=. This
-still requires you to have a test directory (=TEST_DIR=) that includes a
-=test-helper.el= file to set up everything before running tests.
+will load all files in the test directory (=TEST_DIR=). You can set a
+selector by providing =TEST_SELECTOR=.
 
 The =ert-runner= execution can be controlled using =TEST_PRE_ARGS= and
 =TEST_ARGS=. =TEST_PRE_ARGS= is set to =COVERAGE_WITH_JSON=true= in goal

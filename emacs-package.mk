@@ -49,7 +49,9 @@ $(DIST_DIR): .cask
 test: .cask
 	mkdir -p $(COVERAGE_DIR)
 ifdef ERT_RUN
-	cask $(EMACS) --batch -L . -L $(TEST_DIR)/ -l $(TEST_DIR)/test-helper.el -f ert-run-tests-batch
+	cask $(EMACS) --batch -L . -L $(TEST_DIR) \
+		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (load-file f))' \
+		--eval '(ert-run-tests-batch-and-exit "$(TEST_SELECTOR)")'
 else
 	$(TEST_PRE_ARGS) cask exec ert-runner $(TEST_ARGS)
 endif
