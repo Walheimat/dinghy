@@ -24,7 +24,7 @@ install: local
 endif
 
 .PHONY: package-install
-package-install: $(DIST_DIR)
+package-install: clean install
 	$(EMACS) --batch -f package-initialize --eval "(package-install-file \"$(CURDIR)/$(DIST_DIR)/$(PACKAGE_NAME)-$(PACKAGE_VERSION).$(PACKAGE_SUFFIX)\")"
 
 .PHONY: clean-install
@@ -46,7 +46,7 @@ $(DIST_DIR): .cask
 # -- Checks
 
 .PHONY: test
-test: .cask
+test: .cask cask-clean
 	mkdir -p $(COVERAGE_DIR)
 ifdef ERT_RUN
 	cask $(EMACS) --batch -L . -L $(TEST_DIR) \
@@ -65,9 +65,12 @@ coverage: test
 
 # -- Clean-up
 
-.PHONY: clean
-clean:
+.PHONY: cask-clean
+cask-clean:
 	cask clean-elc
+
+.PHONY: clean
+clean: cask-clean
 	rm -rf $(LOCAL_DEPS)
 
 # -- Utility
