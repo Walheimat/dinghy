@@ -25,7 +25,9 @@ endif
 
 .PHONY: package-install
 package-install: clean install
-	$(EMACS) --batch -f package-initialize --eval "(package-install-file \"$(CURDIR)/$(DIST_DIR)/$(PACKAGE_NAME)-$(PACKAGE_VERSION).$(PACKAGE_SUFFIX)\")"
+	$(EMACS) --batch -f package-initialize \
+		--eval "(setq load-prefer-newer t)" \
+		--eval "(package-install-file \"$(CURDIR)/$(DIST_DIR)/$(PACKAGE_NAME)-$(PACKAGE_VERSION).$(PACKAGE_SUFFIX)\")"
 
 .PHONY: clean-install
 clean-install: clean install
