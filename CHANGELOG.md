@@ -16,9 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Variable `UPDATE_VERSION_DEPS` now defaults to `update-package-file`
-  which is a new phony goal that will update the Emacs Lisp file of
-  the package.
+- Variable `UPDATE_VERSION_DEPS` now defaults to `Cask` and the package file.
+- Script `update-version` longer uses the last two tags; it is now
+  called with the value of `CURRENT_PACKAGE_VERSION` set in the
+  Makefile as the target version. It now loops over all files
+  specified in `UPDATE_VERSION_DEPS`.
 - Goal `local-test` was removed in favor of a conditional in `test`
   that will `cat` the coverage results if `CI` is not set and the file
   exists.

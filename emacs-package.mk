@@ -8,12 +8,13 @@ COVERAGE_DIR?=coverage
 DIST_DIR?=dist
 
 LOCAL_DEPS?=$(DIST_DIR)
-UPDATE_VERSION_DEPS?=update-package-file
 
 PACKAGE_SUFFIX?=el
 PACKAGE_VERSION=$(shell cask version)
 
 UPDATE_VERSION=$(DINGHY_DIR)/scripts/update-version.sh
+UPDATE_VERISON_DEPS?=Cask $(PACKAGE_NAME).el
+CURRENT_PACKAGE_VERSION?="none"
 
 # -- Default goal
 
@@ -78,12 +79,12 @@ clean: cask-clean
 # -- Utility
 
 .PHONY: update-version
-update-version: $(UPDATE_VERSION_DEPS)
-	$(UPDATE_VERSION) Cask
-
-.PHONY: update-package-file
-update-package-file:
-	$(UPDATE_VERSION) $(PACKAGE_NAME).el
+update-version:
+ifneq ($(CURRENT_PACKAGE_VERSION), "none")
+	$(UPDATE_VERSION) $(CURRENT_PACKAGE_VERSION) $(UPDATE_VERSION_DEPS)
+else
+	$(info You need to set CURRENT_PACKAGE_VERSION in your Makefile)
+endif
 
 .PHONY: pacify
 pacify: $(PACIFY_DEPS)

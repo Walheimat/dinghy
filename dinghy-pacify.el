@@ -1,4 +1,10 @@
-;;; dinghy-pacify.el --- Check files with `flymake'. -*- lexical-binding: t; -*-
+;;; dinghy-pacify.el --- Check files with `flymake' -*- lexical-binding: t; -*-
+
+;; Author: Krister Schuchardt <krister.schuchardt@gmail.com>
+;; Homepage: https://github.com/Walheimat/dinghy
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "28.1"))
+;; Keywords: files
 
 ;;; Commentary:
 ;;
