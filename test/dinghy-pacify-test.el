@@ -47,37 +47,37 @@
     (should (equal '(3 3) (dinghy-pacify--get-severity-diags 3)))))
 
 (ert-deftest dp--get-info ()
-  (bydi-with-temp-file "testing"
+  (ert-with-temp-file info
 
     (bydi ((:mock flymake--diag-text :return "test")
            (:mock flymake--diag-beg :return 1)
-           (:mock flymake--diag-locus :with (lambda (_) (get-buffer bydi-tmp-file))))
+           (:mock flymake--diag-locus :with (lambda (_) (get-buffer info))))
 
       (should (equal (dinghy-pacify--get-info nil)
-                     (list :file (buffer-file-name (get-buffer bydi-tmp-file))
+                     (list :file (buffer-file-name (get-buffer info))
                            :line 1
                            :text "test"))))))
 
 (ert-deftest dp--collect--collects-if-ready ()
   (let ((severities '(warning error debug info)))
-    (bydi-with-temp-file "testing"
+    (ert-with-temp-file ready
       (bydi (flymake-mode
              flymake-start
              (:always dinghy-pacify--ready-p)
              (:mock dinghy-pacify--get-severity-diags :with (lambda (_) (pop severities))))
 
-        (dinghy-pacify--collect bydi-tmp-file)
+        (dinghy-pacify--collect ready)
 
         (bydi-was-called-n-times dinghy-pacify--get-severity-diags 4)))))
 
 (ert-deftest dp--collect--errors-if-never-ready ()
-  (bydi-with-temp-file "testing"
+  (ert-with-temp-file never
     (bydi (flymake-mode
            flymake-start
            (:ignore dinghy-pacify--ready-p)
            sit-for)
 
-      (should-error (dinghy-pacify--collect bydi-tmp-file) :type 'error))))
+      (should-error (dinghy-pacify--collect never) :type 'error))))
 
 (ert-deftest dp--format ()
   (let ((info '(:file "test.txt" :line 42 :text "Answer revealed")))
