@@ -90,22 +90,17 @@ Goal =clean= runs =cask clean-elc= and removes local dependencies
 (=LOCAL_DEPS=).
 
 You can also use script =src/update-version.sh= using goal
-=update-version=. It accepts additional dependencies using
-=UPDATE_VERSION_DEPS= which defaults to updating the package file.
-
-If you need to update several files, you need to set your own goal.
+=update-version=. This requires setting =CURRENT_PACKAGE_VERSION=. You can
+set the files to update using =UPDATE_VERSION_FILES= which defaults to
+updating the Cask and package file.
 
 #+begin_src makefile
 PACKAGE_NAME=my-package
+CURRENT_PACKAGE_VERSION=1.3.1
 
-UPDATE_VERSION_DEPS=more-updates
+UPDATE_VERSION_DEPS=Cask $(PACKAGE_NAME).el other-file.el
 
 include dinghy/emacs-package.mk
-
-.PHONY: more-updates
-more-updates:
-   $(UPDATE_VERSION) my-package.el
-   $(UPDATE_VERISON) my-sub-package.el
 #+end_src
 
 Please also have a look at my various Emacs packages for usage
@@ -125,13 +120,3 @@ PACIFY_PRE_EXEC=--eval "(setq dinghy-pacify-not-testable \"ignore\\\|untestable\
 
 include dinghy/emacs-package.mk
 #+end_src
-
-**** Scripts
-
-The script =update-version= will update version strings from the
-previous version to the current version as described by =git=. So if
-your most recent tag was =v1.0.0= and your new tag is =v1.1.0=, you can
-use the script to update =v1.0.0= in all desired files.
-
-The script will not do anything if it can't find enough tags, or if
-the old tag can't be found in one of the desired files.

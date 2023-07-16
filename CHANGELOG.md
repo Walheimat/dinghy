@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [v0.2.0]
 
 ### Added
 
@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Variable `UPDATE_VERSION_DEPS` was renamed to `UPDATE_VERSION_FILES`
   and now defaults to `Cask` and the package file.
-- Script `update-version` longer uses the last two tags; it is now
+- Script `update-version` no longer uses the last two tags; it is now
   called with the value of `CURRENT_PACKAGE_VERSION` set in the
   Makefile as the target version. It now loops over all files
   specified in `UPDATE_VERSION_FILES`.
