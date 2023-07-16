@@ -13,7 +13,7 @@ PACKAGE_SUFFIX?=el
 PACKAGE_VERSION=$(shell cask version)
 
 UPDATE_VERSION=$(DINGHY_DIR)/scripts/update-version.sh
-UPDATE_VERISON_DEPS?=Cask $(PACKAGE_NAME).el
+UPDATE_VERSION_FILES?=Cask $(PACKAGE_NAME).el
 CURRENT_PACKAGE_VERSION?="none"
 
 # -- Default goal
@@ -81,7 +81,7 @@ clean: cask-clean
 .PHONY: update-version
 update-version:
 ifneq ($(CURRENT_PACKAGE_VERSION), "none")
-	$(UPDATE_VERSION) $(CURRENT_PACKAGE_VERSION) $(UPDATE_VERSION_DEPS)
+	$(UPDATE_VERSION) $(CURRENT_PACKAGE_VERSION) $(UPDATE_VERSION_FILES)
 else
 	$(info You need to set CURRENT_PACKAGE_VERSION in your Makefile)
 endif
