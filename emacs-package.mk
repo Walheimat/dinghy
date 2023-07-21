@@ -58,9 +58,6 @@ ifdef ERT_RUN
 else
 	$(TEST_PRE_ARGS) cask exec ert-runner $(TEST_ARGS)
 endif
-ifndef CI
-	[ -f $(COVERAGE_DIR)/results.txt ] || exit 0 && cat $(COVERAGE_DIR)/results.txt
-endif
 
 .PHONY: coverage
 coverage: TEST_PRE_ARGS=COVERAGE_WITH_JSON=true
