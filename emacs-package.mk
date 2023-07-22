@@ -49,13 +49,14 @@ $(DIST_DIR): .cask
 # -- Checks
 
 .PHONY: test
-test: .cask cask-clean
-	mkdir -p $(COVERAGE_DIR)
 ifdef ERT_RUN
+test:
 	cask $(EMACS) --batch -L . -L $(TEST_DIR) \
-		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (load-file f))' \
+		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (unless (file-directory-p f) (load-file f)))' \
 		--eval '(ert-run-tests-batch-and-exit "$(TEST_SELECTOR)")'
 else
+test: .cask cask-clean
+	mkdir -p $(COVERAGE_DIR)
 	$(TEST_PRE_ARGS) cask exec ert-runner $(TEST_ARGS)
 endif
 
