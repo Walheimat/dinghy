@@ -7,17 +7,14 @@
 ;;; Code:
 
 (require 'bydi)
+(require 'bydi-ci)
 (require 'bydi-report)
-
-(declare-function bydi-path-setup "ext:bydi.el")
-(declare-function bydi-ert-runner-setup "ext:bydi.el")
-(declare-function bydi-undercover-setup "ext:bydi.el")
 
 ;; Setup
 
-(bydi-path-setup)
-(bydi-undercover-setup (list "dinghy-pacify.el"))
-(bydi-ert-runner-setup)
+(bydi-ci-setup-paths)
+(bydi-report-setup-undercover (list "dinghy-pacify.el"))
+(bydi-report-setup-ert-runner)
 
 ;;; test-helper.el ends here
 
