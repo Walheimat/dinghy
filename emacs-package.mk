@@ -40,7 +40,6 @@ ci: .cask $(CI_DEPS)
 local: $(LOCAL_DEPS) $(LOCAL_PHONY_DEPS)
 
 $(DIST_DIR): .cask
-	cask build
 	cask package
 
 .cask: $(CASK_DEPS)
@@ -68,6 +67,7 @@ coverage: test
 
 .PHONY: cask-clean
 cask-clean:
+	rm -rf $(DIST_DIR)
 	cask clean-elc
 
 .PHONY: clean

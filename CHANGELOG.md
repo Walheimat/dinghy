@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The `undercover` text result is no longer `cat`ed to stdout.
+- The dist goal no longer runs `cask build` as it isn't necessary.
 
 ## [v0.2.0]
 
