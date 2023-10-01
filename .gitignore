@@ -1,2 +1,4 @@
 .cask/
 coverage/
+
+.dir-locals.el

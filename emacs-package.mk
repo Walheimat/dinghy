@@ -3,6 +3,7 @@
 EMACS?=emacs
 
 DINGHY_DIR?=dinghy
+DINGHY_VERSION=0.2.1
 TEST_DIR?=test
 COVERAGE_DIR?=coverage
 DIST_DIR?=dist
@@ -35,9 +36,11 @@ clean-install: clean install
 
 .PHONY: ci
 ci: .cask $(CI_DEPS)
+	$(info Installed (CI) using v$(DINGHY_VERSION))
 
 .PHONY: local
 local: $(LOCAL_DEPS) $(LOCAL_PHONY_DEPS)
+	$(info Installed using v$(DINGHY_VERSION))
 
 $(DIST_DIR): .cask
 	cask package
