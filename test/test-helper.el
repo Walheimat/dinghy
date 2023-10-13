@@ -13,7 +13,7 @@
 ;; Setup
 
 (bydi-ci-setup-paths)
-(bydi-report-setup-undercover (list "dinghy-pacify.el"))
+(bydi-report-setup-undercover (list "scripts/dinghy-pacify.el"))
 (bydi-report-setup-ert-runner)
 
 ;;; test-helper.el ends here
