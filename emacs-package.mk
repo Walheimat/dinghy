@@ -36,11 +36,11 @@ clean-install: clean install
 
 .PHONY: ci
 ci: .cask $(CI_DEPS)
-	$(info Installed (CI) using v$(DINGHY_VERSION))
+	$(info Installed (CI) using dinghy v$(DINGHY_VERSION))
 
 .PHONY: local
 local: $(LOCAL_DEPS) $(LOCAL_PHONY_DEPS)
-	$(info Installed using v$(DINGHY_VERSION))
+	$(info Installed using dinghy v$(DINGHY_VERSION))
 
 $(DIST_DIR): .cask
 	cask package
