@@ -13,6 +13,8 @@ LOCAL_DEPS?=$(DIST_DIR)
 PACKAGE_SUFFIX?=el
 PACKAGE_VERSION=$(shell cask version)
 
+PACIFY=$(DINGHY_DIR)/scripts/dinghy-pacify.el
+
 UPDATE_VERSION=$(DINGHY_DIR)/scripts/update-version.sh
 UPDATE_VERSION_FILES?=Cask $(PACKAGE_NAME).el
 CURRENT_PACKAGE_VERSION?="none"
@@ -89,7 +91,7 @@ endif
 
 .PHONY: pacify
 pacify: $(PACIFY_DEPS)
-	cask $(EMACS) --batch -L . -l $(DINGHY_DIR)/dinghy-pacify.el $(PACIFY_PRE_EXEC) -f dinghy-pacify-check
+	cask $(EMACS) --batch -L . -l $(PACIFY) $(PACIFY_PRE_EXEC) -f dinghy-pacify-check
 
 # Run `make V=1 {cmd}` to print commands
 $(V).SILENT:
