@@ -3,7 +3,7 @@
 EMACS?=emacs
 
 DINGHY_DIR?=dinghy
-DINGHY_VERSION=0.2.1
+DINGHY_VERSION=0.2.2
 TEST_DIR?=test
 COVERAGE_DIR?=coverage
 DIST_DIR?=dist
