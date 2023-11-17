@@ -56,6 +56,7 @@ $(DIST_DIR): .cask
 ifdef ERT_RUN
 test:
 	cask $(EMACS) --batch -L . -L $(TEST_DIR) \
+		--eval "(require 'ert)" \
 		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (unless (file-directory-p f) (load-file f)))' \
 		--eval '(ert-run-tests-batch-and-exit "$(TEST_SELECTOR)")'
 else
