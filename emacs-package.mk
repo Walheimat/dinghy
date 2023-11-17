@@ -5,6 +5,7 @@ EMACS?=emacs
 DINGHY_DIR?=dinghy
 DINGHY_VERSION=0.2.2
 TEST_DIR?=test
+TEST_HELPER?=test/test-helper.el
 COVERAGE_DIR?=coverage
 DIST_DIR?=dist
 
@@ -56,8 +57,8 @@ $(DIST_DIR): .cask
 ifdef ERT_RUN
 test:
 	cask $(EMACS) --batch -L . -L $(TEST_DIR) \
-		--eval "(require 'ert)" \
-		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (unless (file-directory-p f) (load-file f)))' \
+		--eval '(load-file "$(TEST_HELPER)")' \
+		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (unless (or (file-directory-p f) (string-suffix-p "$(TEST_HELPER)" f)) (load-file f)))' \
 		--eval '(ert-run-tests-batch-and-exit "$(TEST_SELECTOR)")'
 else
 test: .cask cask-clean

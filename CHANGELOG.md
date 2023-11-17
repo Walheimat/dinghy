@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Eagerly require `ert` for `ERT_RUN` variant of `test`.
+- The `ERT_RUN` variant now also loads the test helper first (and
+  once) only.
 
 ## [v0.2.2]
 
