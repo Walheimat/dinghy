@@ -4,9 +4,7 @@ EMACS?=emacs
 
 DINGHY_DIR?=dinghy
 DINGHY_VERSION=0.2.2
-TEST_DIR?=test
-TEST_HELPER?=test/test-helper.el
-COVERAGE_DIR?=coverage
+
 DIST_DIR?=dist
 
 LOCAL_DEPS?=$(DIST_DIR)
@@ -53,21 +51,25 @@ $(DIST_DIR): .cask
 
 # -- Checks
 
+TEST_DIR?=test
+TEST_HELPER?=$(TEST_DIR)/test-helper.el
+TEST_COVERAGE_DIR?=coverage
+TEST_EXECUTE_BEFORE=true
+
 .PHONY: test
-ifdef ERT_RUN
-test:
-	cask $(EMACS) --batch -L . -L $(TEST_DIR) \
+test: .cask cask-clean
+	mkdir -p $(TEST_COVERAGE_DIR)
+ifdef TEST_USE_ERT_RUNNER
+	$(TEST_EXECUTE_BEFORE) && cask exec ert-runner $(TEST_ARGS)
+else
+	$(TEST_EXECUTE_BEFORE) && cask $(EMACS) --batch -L . -L $(TEST_DIR) \
 		--eval '(load-file "$(TEST_HELPER)")' \
 		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (unless (or (file-directory-p f) (string-suffix-p "$(TEST_HELPER)" f)) (load-file f)))' \
 		--eval '(ert-run-tests-batch-and-exit "$(TEST_SELECTOR)")'
-else
-test: .cask cask-clean
-	mkdir -p $(COVERAGE_DIR)
-	$(TEST_PRE_ARGS) cask exec ert-runner $(TEST_ARGS)
 endif
 
 .PHONY: coverage
-coverage: TEST_PRE_ARGS=COVERAGE_WITH_JSON=true
+coverage: TEST_EXECUTE_BEFORE=export COVERAGE_WITH_JSON=true
 coverage: test
 
 # -- Clean-up

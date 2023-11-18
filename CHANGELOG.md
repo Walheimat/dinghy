@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Goal `upgrade-bidy` to remove the package and re-install it.
 
+### Changed
+
+- Tests are now run using `ert-run-tests-batch-and-exit` by default.
+  To use `ert-runner`, env `ERT_RUNNER` must be set.
+
 ### Fixed
 
 - The `ERT_RUN` variant now also loads the test helper first (and
