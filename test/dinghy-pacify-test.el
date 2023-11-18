@@ -91,7 +91,8 @@
 
     (bydi ((:mock shell-command-to-string :return "wal-notest.el\nwal-dotest.el\nwal-do-leaveme.el\nwal-useme.el\n"))
 
-      (should (equal '("wal-dotest.el" "wal-useme.el") (dinghy-pacify-check--get-package-files))))))
+      (shut-up
+        (should (equal '("wal-dotest.el" "wal-useme.el") (dinghy-pacify-check--get-package-files)))))))
 
 (ert-deftest dp-check--get-package-files--returns-if-no-filter ()
   (defvar dinghy-pacify-check--not-testable)
@@ -119,7 +120,8 @@
            wal-pacif--format
            kill-emacs)
 
-      (dinghy-pacify-check)
+      (shut-up
+        (dinghy-pacify-check))
 
       (bydi-was-called-with kill-emacs 0))))
 
