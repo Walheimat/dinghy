@@ -55,6 +55,8 @@ TEST_DIR?=test
 TEST_HELPER?=$(TEST_DIR)/test-helper.el
 TEST_COVERAGE_DIR?=coverage
 TEST_EXECUTE_BEFORE=true
+TEST_SELECTOR=nil
+TEST_TAG=nil
 
 .PHONY: test
 test: .cask cask-clean
@@ -65,12 +67,16 @@ else
 	$(TEST_EXECUTE_BEFORE) && cask $(EMACS) --batch -L . -L $(TEST_DIR) \
 		--eval '(load-file "$(TEST_HELPER)")' \
 		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (unless (or (file-directory-p f) (string-suffix-p "$(TEST_HELPER)" f)) (load-file f)))' \
-		--eval '(ert-run-tests-batch-and-exit "$(TEST_SELECTOR)")'
+		--eval "(ert-run-tests-batch-and-exit $(TEST_SELECTOR))"
 endif
 
-.PHONY: coverage
+.PHONY: test-coverage
 coverage: TEST_EXECUTE_BEFORE=export COVERAGE_WITH_JSON=true
 coverage: test
+
+.PHONY: test-tagged
+test-tagged: TEST_SELECTOR=(list (quote tag) (quote $(TEST_TAG)))
+test-tagged: test
 
 # -- Clean-up
 
