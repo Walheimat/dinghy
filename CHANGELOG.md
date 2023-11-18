@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Tests are now run using `ert-run-tests-batch-and-exit` by default.
   To use `ert-runner`, env `ERT_RUNNER` must be set.
+- Goal `coverage` was renamed to `test-coverage`.
 
 ### Fixed
 

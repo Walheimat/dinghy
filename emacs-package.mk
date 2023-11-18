@@ -71,8 +71,8 @@ else
 endif
 
 .PHONY: test-coverage
-coverage: TEST_EXECUTE_BEFORE=export COVERAGE_WITH_JSON=true
-coverage: test
+test-coverage: TEST_EXECUTE_BEFORE=export COVERAGE_WITH_JSON=true
+test-coverage: test
 
 .PHONY: test-tagged
 test-tagged: TEST_SELECTOR=(list (quote tag) (quote $(TEST_TAG)))
