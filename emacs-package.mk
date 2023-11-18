@@ -75,8 +75,12 @@ test-coverage: TEST_EXECUTE_BEFORE=export COVERAGE_WITH_JSON=true
 test-coverage: test
 
 .PHONY: test-tagged
-test-tagged: TEST_SELECTOR=(list (quote tag) (quote $(TEST_TAG)))
+test-tagged: TEST_SELECTOR=(quote (tag $(TEST_TAG)))
 test-tagged: test
+
+.PHONY: test-not-tagged
+test-not-tagged: TEST_SELECTOR=(quote (not (tag $(TEST_TAG))))
+test-not-tagged: test
 
 .PHONY: test-selector
 test-selector: TEST_SELECTOR=(symbol-name (quote $(TEST_SELECTOR_STRING)))
