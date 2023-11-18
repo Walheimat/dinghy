@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Goal `upgrade-bidy` to remove the package and re-install it.
 - Goal `test-tagged` that allows passing `TEST_TAG` to only run tests
   with that tag.
+- Goal `test-selector` that allows passing `TEST_SELECTOR_STRING` to
+  only run tests matching that selector string.
 
 ### Changed
 

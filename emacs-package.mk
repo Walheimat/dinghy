@@ -78,6 +78,10 @@ test-coverage: test
 test-tagged: TEST_SELECTOR=(list (quote tag) (quote $(TEST_TAG)))
 test-tagged: test
 
+.PHONY: test-selector
+test-selector: TEST_SELECTOR=(symbol-name (quote $(TEST_SELECTOR_STRING)))
+test-selector: test
+
 # -- Clean-up
 
 .PHONY: cask-clean
