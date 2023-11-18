@@ -95,5 +95,13 @@ endif
 pacify: $(PACIFY_DEPS)
 	cask $(EMACS) --batch -L . -l $(PACIFY) $(PACIFY_PRE_EXEC) -f dinghy-pacify-check
 
+CASK_PACKAGE_DIRECTORY=$(shell cask package-directory)
+
+.phony: upgrade-bidy
+upgrade-bidy:
+	$(info Removing bydi from $(CASK_PACKAGE_DIRECTORY))
+	cd $(CASK_PACKAGE_DIRECTORY) && rm -rf bydi*
+	cask install
+
 # Run `make V=1 {cmd}` to print commands
 $(V).SILENT:

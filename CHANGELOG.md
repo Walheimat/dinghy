@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### [Unreleased]
 
+### Added
+
+- Goal `upgrade-bidy` to remove the package and re-install it.
+
 ### Fixed
 
 - The `ERT_RUN` variant now also loads the test helper first (and
