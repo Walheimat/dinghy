@@ -56,7 +56,7 @@ TEST_HELPER?=$(TEST_DIR)/test-helper.el
 TEST_COVERAGE_DIR?=coverage
 TEST_EXECUTE_BEFORE=true
 TEST_SELECTOR=nil
-TEST_TAG=nil
+TEST_TAG?=nil
 
 .PHONY: test
 test: .cask cask-clean
