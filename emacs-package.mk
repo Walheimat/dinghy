@@ -13,6 +13,7 @@ PACKAGE_SUFFIX?=el
 PACKAGE_VERSION=$(shell cask version)
 
 PACIFY=$(DINGHY_DIR)/scripts/dinghy-pacify.el
+TEMPLATES_DIR=$(DINGHY_DIR)/templates
 
 UPDATE_VERSION=$(DINGHY_DIR)/scripts/update-version.sh
 UPDATE_VERSION_FILES?=Cask $(PACKAGE_NAME).el
@@ -118,6 +119,30 @@ upgrade-bidy:
 	$(info Removing bydi from $(CASK_PACKAGE_DIRECTORY))
 	cd $(CASK_PACKAGE_DIRECTORY) && rm -rf bydi*
 	cask install
+
+# -- Commit linting setup
+
+.PHONY: commits
+commits: commitlint.config.js node_modules .husky/_/husky.sh
+
+commitlint.config.js:
+	cp -u $(TEMPLATES_DIR)/template-commitlint-package.json package.json
+	cp -u $(TEMPLATES_DIR)/template-commitlint-commitlint.config.js commitlint.config.js
+
+node_modules:
+	npm install
+
+.husky/_/husky.sh:
+	npx husky install
+	cp -u $(TEMPLATES_DIR)/template-commitlint-commit-msg .husky/commit-msg
+	chmod +x .husky/commit-msg
+
+.PHONY: clean-commits
+clean-commits:
+	rm -rf node_modules/
+	rm -rf .husky/
+	rm -f commitlint.config.js package.json package-lock.json
+	git config --unset core.hooksPath
 
 # Run `make V=1 {cmd}` to print commands
 $(V).SILENT:

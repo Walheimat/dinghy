@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   with that tag. The reverse goal `test-not-tagged` was also added.
 - Goal `test-selector` that allows passing `TEST_SELECTOR_STRING` to
   only run tests matching that selector string.
+- Goal `commits` to setup `commitlint` with `husky` (`clean-commits`
+  to remove again).
 
 ### Changed
 
