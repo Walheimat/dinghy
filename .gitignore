@@ -1,4 +1,5 @@
 .cask/
 coverage/
+node_modules/
 
 .dir-locals.el
