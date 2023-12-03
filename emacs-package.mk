@@ -114,8 +114,8 @@ pacify: $(PACIFY_DEPS)
 
 CASK_PACKAGE_DIRECTORY=$(shell cask package-directory)
 
-.phony: upgrade-bidy
-upgrade-bidy:
+.phony: upgrade-bydi
+upgrade-bydi:
 	$(info Removing bydi from $(CASK_PACKAGE_DIRECTORY))
 	cd $(CASK_PACKAGE_DIRECTORY) && rm -rf bydi*
 	cask install
