@@ -59,8 +59,6 @@
                            :text "test"))))))
 
 (ert-deftest dp--collect--collects-if-ready ()
-  :tags '(hi)
-
   (let ((severities '(warning error debug info)))
     (ert-with-temp-file ready
       (bydi (flymake-mode
@@ -73,8 +71,6 @@
         (bydi-was-called-n-times dinghy-pacify--get-severity-diags 4)))))
 
 (ert-deftest dp--collect--errors-if-never-ready ()
-  :tags '(test)
-
   (ert-with-temp-file never
     (bydi (flymake-mode
            flymake-start
