@@ -39,14 +39,22 @@ include dinghy/emacs-package.mk
 This would give you access to the following goals:
 
 - install
+- package-install
 - clean-install
 - ci
 - local
 - test
-- coverage
+- test-coverage
+- test-tagged
+- test-not-tagged
+- test-selector
+- cask-clean
 - clean
 - update-version
 - pacify
+- upgrade-bydi
+- commits
+- clean-commits
 
 The default goal =install= will depend on =ci= if =CI= env is set (by GitHub
 Actions for example) otherwise on =local=.
@@ -65,8 +73,16 @@ The =package-install= goal will use =package-install-file= on the =cask
 package= result. If you have a multi-file package, you will need to set
 =PACKAGE_SUFFIX= to =tar= (it defaults to =el=).
 
-The =test= goal by default calls =cask exec ert-runner=, meaning you need
-to add that to your Cask dependencies.
+The =test= goal by default calls =ert-run-tests-batch-and-exit= using
+=cask=. The goals =test-{tagged,not-tagged,selector}= use environment
+variables =TEST_TAG= and =TEST_SELECTOR_STRING= to set a selector for
+=ert=.
+
+If you want to run something before the tests you can set
+=TEST_EXECUTE_BEFORE=.
+
+You can alternatively set =TEST_USE_ERT_RUNNER= to use run =cask exec
+ert-runner=, meaning you need to add that to your Cask dependencies.
 
 #+begin_src emacs-lisp
 (development
@@ -74,17 +90,7 @@ to add that to your Cask dependencies.
  (depends-on "ert-runner"))
 #+end_src
 
-You can alternatively set =ERT_RUN= to use =ert-run-tests-batch=. This
-will load all files in the test directory (=TEST_DIR=). You can set a
-selector by providing =TEST_SELECTOR=.
-
-The =ert-runner= execution can be controlled using =TEST_PRE_ARGS= and
-=TEST_ARGS=. =TEST_PRE_ARGS= is set to =COVERAGE_WITH_JSON=true= in goal
-=coverage= as this tells my test package =bydi= to set up =undercover= to
-create JSON coverage instead of text coverage.
-
-If =CI= is not set, =test= will also =cat= the results of the text coverage
-(if it exists).
+The =ert-runner= execution can be controlled using =TEST_ARGS=.
 
 Goal =clean= runs =cask clean-elc= and removes local dependencies
 (=LOCAL_DEPS=).
@@ -120,3 +126,11 @@ PACIFY_PRE_EXEC=--eval "(setq dinghy-pacify-not-testable \"ignore\\\|untestable\
 
 include dinghy/emacs-package.mk
 #+end_src
+
+Goal =upgrade-bydi= force-updates Cask dependency =bydi= (a library of
+mocking macros).
+
+You can also setup commit linting using =npm= packages =husky= and
+=commitlint= by executing =commits=. It will set up a config using
+conventional commits, add a pre-commit hook to lint the commit message
+and install this hook.
