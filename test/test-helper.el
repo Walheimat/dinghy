@@ -7,14 +7,15 @@
 ;;; Code:
 
 (require 'bydi)
-(require 'bydi-ci)
-(require 'bydi-report)
+(require 'dinghy-rope)
 
 ;; Setup
 
-(bydi-ci-setup-paths)
-(bydi-report-setup-undercover (list "scripts/dinghy-pacify.el"))
-(bydi-report-setup-ert-runner)
+(dinghy-rope-setup-paths)
+(dinghy-rope-setup-undercover '("src/dinghy-pacify.el"
+                                "src/dinghy-rope.el"))
+(dinghy-rope-setup-ert-runner)
+(dinghy-rope-setup-ert :increase-print-depth t)
 
 ;;; test-helper.el ends here
 

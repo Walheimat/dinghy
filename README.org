@@ -24,7 +24,6 @@ git submodule update
 If you add =dinghy= using a different name, make sure to set =DINGHY_DIR=
 in your Makefile accordingly.
 
-
 *** Usage
 
 Say you have such an Emacs package called =my-package.el=. You
@@ -134,3 +133,36 @@ You can also setup commit linting using =npm= packages =husky= and
 =commitlint= by executing =commits=. It will set up a config using
 conventional commits, add a pre-commit hook to lint the commit message
 and install this hook.
+
+You can use =dinghy-rope= to setup paths for your test as well as
+packages like =ert-runner= and =undercover=.
+
+The main recipe is the following:
+
+#+begin_src emacs-lisp
+(require 'dinghy-rope)
+
+(dinghy-rope-setup-paths)
+;; or
+(dinghy-rope-setup-paths '("relative/one" "relative/two"))
+
+(dinghy-rope-setup-undercover (list "my-package.el"))
+;; or
+(dinghy-rope-setup-undercover  (list "src/*.el" "root.el"))
+
+(dinghy-rope-setup-ert-runner)
+;; or
+(defun my-reporter (&rest _)
+  "Notify."
+  (message "We are done here"))
+(dinghy-rope-setup-ert-runner #'my-reporter)
+
+(dinghy-rope-setup-ert :increase-print-depth t)
+#+end_src
+
+There's also convenience command =dinghy-rope-find-test-helper= to
+find the helper file =ert-runner= uses.
+
+Please have a look at [[https://github.com/Walheimat/wal-emacs][my Emacs configuration]] for real-world usage
+examples that set up =ert-runner= and =undercover= (the same is done here
+but since we test =dinghy= itself, it's not using its setup functions).

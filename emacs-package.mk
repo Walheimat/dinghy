@@ -12,10 +12,12 @@ LOCAL_DEPS?=$(DIST_DIR)
 PACKAGE_SUFFIX?=el
 PACKAGE_VERSION=$(shell cask version)
 
-PACIFY=$(DINGHY_DIR)/scripts/dinghy-pacify.el
+DINGHY_SRC_DIR?=$(DINGHY_DIR)/src
+PACIFY=$(DINGHY_SRC_DIR)/dinghy-pacify.el
+
 TEMPLATES_DIR=$(DINGHY_DIR)/templates
 
-UPDATE_VERSION=$(DINGHY_DIR)/scripts/update-version.sh
+UPDATE_VERSION=$(DINGHY_SRC_DIR)/update-version.sh
 UPDATE_VERSION_FILES?=Cask $(PACKAGE_NAME).el
 CURRENT_PACKAGE_VERSION?="none"
 
@@ -66,6 +68,7 @@ ifdef TEST_USE_ERT_RUNNER
 	$(TEST_EXECUTE_BEFORE) && cask exec ert-runner $(TEST_ARGS)
 else
 	$(TEST_EXECUTE_BEFORE) && cask $(EMACS) --batch -L . -L $(TEST_DIR) \
+		-L $(DINGHY_SRC_DIR) \
 		--eval '(load-file "$(TEST_HELPER)")' \
 		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (unless (or (file-directory-p f) (string-suffix-p "$(TEST_HELPER)" f)) (load-file f)))' \
 		--eval "(ert-run-tests-batch-and-exit $(TEST_SELECTOR))"
