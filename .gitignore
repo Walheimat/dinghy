@@ -3,3 +3,5 @@ coverage/
 node_modules/
 
 .dir-locals.el
+
+src/*-autoloads.el
