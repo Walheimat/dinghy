@@ -3,7 +3,7 @@
 EMACS?=emacs
 
 DINGHY_DIR?=dinghy
-DINGHY_VERSION=0.3.0
+DINGHY_VERSION=0.4.0
 
 DIST_DIR?=dist
 
