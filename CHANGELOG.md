@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Functionality from by package `bydi` to setup paths for tests and
   other testing libraries was moved here under `dinghy-rope`.
+- Goal `update-version` now also updates a changelog file if it has
+  the current changes under a matching heading. This is "0.4.1"
+  by default, and the changelog file is CHANGELOG.md. These can be
+  customized using `UPDATE_VERSION_CHANGELOG_FILE` and
+  `UPDATE_VERSION_CHANGELOG_HEADING`.
 
 ### Changed
 

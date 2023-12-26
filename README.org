@@ -95,9 +95,12 @@ Goal =clean= runs =cask clean-elc= and removes local dependencies
 (=LOCAL_DEPS=).
 
 You can also use script =src/update-version.sh= using goal
-=update-version=. This requires setting =CURRENT_PACKAGE_VERSION=. You can
-set the files to update using =UPDATE_VERSION_FILES= which defaults to
-updating the Cask and package file.
+=update-version=. This requires setting =CURRENT_PACKAGE_VERSION=. You
+can set the files to update using =UPDATE_VERSION_FILES= which
+defaults to updating the Cask and package file. This goal also updates
+the changelog file using =UPDATE_VERSION_CHANGELOG_FILE= (defaulting
+to =CHANGELOG.md=) and =UPDATE_VERSION_CHANGELOG_HEADING= (defaulting
+to =Unreleased=).
 
 #+begin_src makefile
 PACKAGE_NAME=my-package

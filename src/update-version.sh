@@ -19,15 +19,15 @@ if [[ $LATEST_TAG_VERSION == "$DESIRED_VERSION" ]]; then
   exit 0
 fi
 
-
 function dinghy::update_and_replace {
   local file=$1
+  local latest=${2:-$LATEST_TAG_VERSION}
   local base
   base=$(basename "$file")
 
-  echo "Updating ${base@Q} from $LATEST_TAG_VERSION to $DESIRED_VERSION"
+  echo "Updating ${base@Q} from $latest to $DESIRED_VERSION"
 
-  sed -e "s/${LATEST_TAG_VERSION}/${DESIRED_VERSION}/" "$file" > /tmp/"$base"-updated
+  sed -e "s/${latest}/${DESIRED_VERSION}/" "$file" > /tmp/"$base"-updated
   mv -f /tmp/"$base"-updated "$file"
 }
 
@@ -53,3 +53,9 @@ for i in "${FILES[@]}"; do
     dinghy::update_and_replace "$i"
   fi
 done
+
+if [[ -f $CHANGELOG_FILE ]]; then
+  dinghy::update_and_replace "$CHANGELOG_FILE" "$CHANGELOG_HEADING"
+else
+  echo "${CHANGELOG_FILE@Q} is not a file"
+fi
