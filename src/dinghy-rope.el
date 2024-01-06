@@ -129,7 +129,7 @@ This calls `pop-to-buffer' with flag NO-RECORD."
 
     (pop-to-buffer (find-file-noselect helper) nil t)))
 
-;;; -- `undercover'
+;;;; `undercover'
 
 (defvar undercover-force-coverage)
 (defvar undercover--merge-report)
@@ -167,7 +167,7 @@ The text report will be printed to stdout."
       (when (eq 'text report-format)
         (add-hook 'kill-emacs-hook #'dinghy-rope-report--undercover-result 'last)))))
 
-;;; -- Paths
+;;;; Paths
 
 (defvar dinghy-rope-path--env-github-workspace "GITHUB_WORKSPACE"
   "Location of the project in GitHub action.")
@@ -190,7 +190,7 @@ This function returns a list of the directories added to the
 
     paths))
 
-;;; -- API
+;;;; API
 
 ;;;###autoload
 (defun dinghy-rope-setup-paths (&optional paths)
