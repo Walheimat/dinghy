@@ -57,5 +57,9 @@ done
 if [[ -f $CHANGELOG_FILE ]]; then
   dinghy::update_and_replace "$CHANGELOG_FILE" "$CHANGELOG_HEADING"
 else
-  echo "${CHANGELOG_FILE@Q} is not a file"
+  if [[ -n $CHANGELOG_FILE ]]; then
+    echo "${CHANGELOG_FILE@Q} is not a file"
+  else
+    echo "Not updating changelog file"
+  fi
 fi

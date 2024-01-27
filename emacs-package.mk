@@ -23,6 +23,7 @@ UPDATE_VERSION_CHANGELOG_FILE?=CHANGELOG.md
 UPDATE_VERSION_CHANGELOG_HEADING?=Unreleased
 
 CURRENT_PACKAGE_VERSION?="none"
+NEXT_RELEASE_VERSION?="none"
 
 # -- Default goal
 
@@ -114,6 +115,14 @@ ifneq ($(CURRENT_PACKAGE_VERSION), "none")
 		$(UPDATE_VERSION) $(CURRENT_PACKAGE_VERSION) $(UPDATE_VERSION_FILES)
 else
 	$(info You need to set CURRENT_PACKAGE_VERSION in your Makefile)
+endif
+
+.PHONY: update-next-version
+update-next-version:
+ifneq ($(NEXT_PACKAGE_VERSION), "none")
+	$(UPDATE_VERSION) $(NEXT_PACKAGE_VERSION) $(UPDATE_VERSION_FILES)
+else
+	$(info You need to set NEXT_PACKAGE_VERSION as an environment variable)
 endif
 
 .PHONY: pacify
