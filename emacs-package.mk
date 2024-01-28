@@ -161,5 +161,24 @@ clean-commits:
 	rm -f commitlint.config.js package.json package-lock.json
 	git config --unset core.hooksPath
 
+## Semantic-Release
+
+.PHONY: semantic-release
+semantic-release:
+ifdef PACKAGE_NAME
+	$(info Copying semantic-release config, be sure to adjust)
+	sed -e 's/%PACKAGE%/$(PACKAGE_NAME)/' $(TEMPLATES_DIR)/semantic-release/.releaserc > .releaserc
+else
+	$(info You need to set PACKAGE_NAME to copy config)
+endif
+	$(info Installing dependencies)
+	npm install --save-dev semantic-release \
+		@semantic-release/changelog \
+		@semantic-release/git \
+		@semantic-release/exec \
+		conventional-changelog-conventionalcommits
+	cp -f $(TEMPLATES_DIR)/semantic-release/release.yml .github/workflows/release.yml
+	cp -f $(TEMPLATES_DIR)/semantic-release/verify.yml .github/workflows/verify.yml
+
 # Run `make V=1 {cmd}` to print commands
 $(V).SILENT:
