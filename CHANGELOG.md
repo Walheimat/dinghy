@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.4.1](https://github.com/Walheimat/dinghy/compare/v0.4.0...v0.4.1) (2024-01-28)
+
+
+### Features
+
+* **ci:** add semantic-release goal ([3848217](https://github.com/Walheimat/dinghy/commit/3848217b7d006399218e52509caa5c439f9a6cdf))
+* **makefile:** add goal update-next-version ([bd78359](https://github.com/Walheimat/dinghy/commit/bd783595fe1e5d7d520ff4ad1ecb5c1b56ad6695))
+* **outline:** use compatible comment headings ([b9852fd](https://github.com/Walheimat/dinghy/commit/b9852fde2222d4f72653594f9f2f9f7f16675948))
+* **update-version:** update changelog file ([ef8efe3](https://github.com/Walheimat/dinghy/commit/ef8efe32eee66e18fff5b35fd59aba09206e4cd4))
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
