@@ -139,26 +139,27 @@ upgrade-bydi:
 
 # -- Commit linting setup
 
-.PHONY: commits
-commits: commitlint.config.js node_modules .husky/_/husky.sh
+.PHONY: commits clean-commits
+commits: commitlint.config.js .husky
 
 commitlint.config.js:
-	cp -u $(TEMPLATES_DIR)/template-commitlint-package.json package.json
-	cp -u $(TEMPLATES_DIR)/template-commitlint-commitlint.config.js commitlint.config.js
+	$(info Setting up commitlint)
+	npm i --save-dev @commitlint/cli
+	cp -u $(TEMPLATES_DIR)/commitlint/commitlint.config.js commitlint.config.js
 
-node_modules:
-	npm install
-
-.husky/_/husky.sh:
-	npx husky install
-	cp -u $(TEMPLATES_DIR)/template-commitlint-commit-msg .husky/commit-msg
+.husky:
+	$(info Setting up husky)
+	npm i --save-dev husky
+	npx husky init
+	cp $(TEMPLATES_DIR)/commitlint/commit-msg .husky/commit-msg
 	chmod +x .husky/commit-msg
+	rm -f .husky/pre-commit
 
-.PHONY: clean-commits
 clean-commits:
-	rm -rf node_modules/
+	$(info Removing commit linting)
+	npm remove husky @commitlint/cli
 	rm -rf .husky/
-	rm -f commitlint.config.js package.json package-lock.json
+	rm -f commitlint.config.js
 	git config --unset core.hooksPath
 
 ## Semantic-Release
