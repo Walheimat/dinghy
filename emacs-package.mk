@@ -27,26 +27,24 @@ NEXT_RELEASE_VERSION?="none"
 
 # -- Default goal
 
+.PHONY: package-install clean-install ci local
+
 ifdef CI
 install: ci
 else
 install: local
 endif
 
-.PHONY: package-install
 package-install: clean install
 	$(EMACS) --batch -f package-initialize \
 		--eval "(setq load-prefer-newer t)" \
 		--eval "(package-install-file \"$(CURDIR)/$(DIST_DIR)/$(PACKAGE_NAME)-$(PACKAGE_VERSION).$(PACKAGE_SUFFIX)\")"
 
-.PHONY: clean-install
 clean-install: clean install
 
-.PHONY: ci
 ci: .cask $(CI_DEPS)
 	$(info Installed (CI) using dinghy v$(DINGHY_VERSION))
 
-.PHONY: local
 local: $(LOCAL_DEPS) $(LOCAL_PHONY_DEPS)
 	$(info Installed using dinghy v$(DINGHY_VERSION))
 
@@ -58,6 +56,8 @@ $(DIST_DIR): .cask
 
 # -- Checks
 
+.PHONY: test test-coverage test-tagged test-not-tagged test-selector
+
 TEST_DIR?=test
 TEST_HELPER?=$(TEST_DIR)/test-helper.el
 TEST_COVERAGE_DIR?=coverage
@@ -65,7 +65,6 @@ TEST_EXECUTE_BEFORE=true
 TEST_SELECTOR=nil
 TEST_TAG?=nil
 
-.PHONY: test
 test: .cask cask-clean
 	mkdir -p $(TEST_COVERAGE_DIR)
 ifdef TEST_USE_ERT_RUNNER
@@ -78,36 +77,33 @@ else
 		--eval "(ert-run-tests-batch-and-exit $(TEST_SELECTOR))"
 endif
 
-.PHONY: test-coverage
 test-coverage: TEST_EXECUTE_BEFORE=export COVERAGE_WITH_JSON=true
 test-coverage: test
 
-.PHONY: test-tagged
 test-tagged: TEST_SELECTOR=(quote (tag $(TEST_TAG)))
 test-tagged: test
 
-.PHONY: test-not-tagged
 test-not-tagged: TEST_SELECTOR=(quote (not (tag $(TEST_TAG))))
 test-not-tagged: test
 
-.PHONY: test-selector
 test-selector: TEST_SELECTOR=(symbol-name (quote $(TEST_SELECTOR_STRING)))
 test-selector: test
 
 # -- Clean-up
 
-.PHONY: cask-clean
+.PHONY: cask-clean clean
+
 cask-clean:
 	rm -rf $(DIST_DIR)
 	cask clean-elc
 
-.PHONY: clean
 clean: cask-clean
 	rm -rf $(LOCAL_DEPS)
 
 # -- Utility
 
-.PHONY: update-version
+.PHONY: update-version update-next-version pacify upgrade-bydi
+
 update-version:
 ifneq ($(CURRENT_PACKAGE_VERSION), "none")
 	export CHANGELOG_FILE=$(UPDATE_VERSION_CHANGELOG_FILE) && \
@@ -117,7 +113,6 @@ else
 	$(info You need to set CURRENT_PACKAGE_VERSION in your Makefile)
 endif
 
-.PHONY: update-next-version
 update-next-version:
 ifneq ($(NEXT_PACKAGE_VERSION), "none")
 	$(UPDATE_VERSION) $(NEXT_PACKAGE_VERSION) $(UPDATE_VERSION_FILES)
@@ -125,13 +120,11 @@ else
 	$(info You need to set NEXT_PACKAGE_VERSION as an environment variable)
 endif
 
-.PHONY: pacify
 pacify: $(PACIFY_DEPS)
 	cask $(EMACS) --batch -L . -l $(PACIFY) $(PACIFY_PRE_EXEC) -f dinghy-pacify-check
 
 CASK_PACKAGE_DIRECTORY=$(shell cask package-directory)
 
-.phony: upgrade-bydi
 upgrade-bydi:
 	$(info Removing bydi from $(CASK_PACKAGE_DIRECTORY))
 	cd $(CASK_PACKAGE_DIRECTORY) && rm -rf bydi*
@@ -165,6 +158,7 @@ clean-commits:
 ## Semantic-Release
 
 .PHONY: semantic-release
+
 semantic-release:
 ifdef PACKAGE_NAME
 	$(info Copying semantic-release config, be sure to adjust)
