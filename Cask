@@ -8,4 +8,4 @@
  (depends-on "shut-up")
  (depends-on "compat"))
 
-(files "scripts/dinghy-pacify.el")
+(files "src/dinghy-pacify.el" "src/dinghy-rope.el")
