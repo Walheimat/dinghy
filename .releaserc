@@ -1,20 +1,12 @@
 {
-  "branches": [
-    "trunk"
-  ],
+  "branches": ["trunk"],
   "repositoryUrl": "git@github.com:Walheimat/dinghy.git",
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
       {
-        "preset": "conventionalcommits",
-        "releaseRules": [
-          {
-            "type": "feat",
-            "release": "patch"
-          }
-        ]
-      },
+        "preset": "conventionalcommits"
+      }
     ],
     "@semantic-release/release-notes-generator",
     [
