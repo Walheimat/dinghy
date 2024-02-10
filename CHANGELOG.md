@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.2](https://github.com/Walheimat/dinghy/compare/v0.4.1...v0.4.2) (2024-02-10)
+
+
+### Bug Fixes
+
+* **emacs:** also update Makefile by default ([f01bd73](https://github.com/Walheimat/dinghy/commit/f01bd73c34130baec1cc7a3c844522686dbee319))
+* **tests:** provide coverage for both files ([27f18b9](https://github.com/Walheimat/dinghy/commit/27f18b979f8712c25b68d1322307347acd4244ad))
+
 ## [0.4.1](https://github.com/Walheimat/dinghy/compare/v0.4.0...v0.4.1) (2024-01-28)
 
 
