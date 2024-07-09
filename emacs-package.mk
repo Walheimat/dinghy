@@ -70,7 +70,7 @@ test: .cask cask-clean
 ifdef TEST_USE_ERT_RUNNER
 	$(TEST_EXECUTE_BEFORE) && cask exec ert-runner $(TEST_ARGS)
 else
-	$(TEST_EXECUTE_BEFORE) && cask $(EMACS) --batch -L . -L $(TEST_DIR) \
+	$(TEST_EXECUTE_BEFORE) && EMACS=$(EMACS) cask emacs --batch -L . -L $(TEST_DIR) \
 		-L $(DINGHY_SRC_DIR) \
 		--eval '(load-file "$(TEST_HELPER)")' \
 		--eval '(dolist (f (nthcdr 2 (directory-files "$(TEST_DIR)" t))) (unless (or (file-directory-p f) (string-suffix-p "$(TEST_HELPER)" f)) (load-file f)))' \
@@ -121,7 +121,7 @@ else
 endif
 
 pacify: $(PACIFY_DEPS)
-	cask $(EMACS) --batch -L . -l $(PACIFY) $(PACIFY_PRE_EXEC) -f dinghy-pacify-check
+	EMACS=$(EMACS) cask --batch -L . -l $(PACIFY) $(PACIFY_PRE_EXEC) -f dinghy-pacify-check
 
 CASK_PACKAGE_DIRECTORY=$(shell cask package-directory)
 
