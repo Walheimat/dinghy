@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/Walheimat/dinghy/compare/v0.4.2...v0.4.3) (2024-07-13)
+
+
+### Bug Fixes
+
+* **cask:** set distinct Emacs as env instead ([fea4851](https://github.com/Walheimat/dinghy/commit/fea485126265c01bf31f2312ef135bfd71dc4212))
+
 ## [0.4.2](https://github.com/Walheimat/dinghy/compare/v0.4.1...v0.4.2) (2024-02-10)
 
 
