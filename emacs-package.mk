@@ -121,7 +121,7 @@ else
 endif
 
 pacify: $(PACIFY_DEPS)
-	EMACS=$(EMACS) cask --batch -L . -l $(PACIFY) $(PACIFY_PRE_EXEC) -f dinghy-pacify-check
+	EMACS=$(EMACS) cask emacs --batch -L . -l $(PACIFY) $(PACIFY_PRE_EXEC) -f dinghy-pacify-check
 
 CASK_PACKAGE_DIRECTORY=$(shell cask package-directory)
 
