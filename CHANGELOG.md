@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.4](https://github.com/Walheimat/dinghy/compare/v0.4.3...v0.4.4) (2024-10-13)
+
+
+### Bug Fixes
+
+* **cask:** make pacify call Emacs subcommand again ([59129c9](https://github.com/Walheimat/dinghy/commit/59129c904019498cc492859ed95dbf4be666cb08))
+
 ## [0.4.3](https://github.com/Walheimat/dinghy/compare/v0.4.2...v0.4.3) (2024-07-13)
 
 

@@ -2,7 +2,7 @@
 
 ;; Author: Krister Schuchardt <krister.schuchardt@gmail.com>
 ;; Homepage: https://github.com/Walheimat/dinghy
-;; Version: 0.4.3
+;; Version: 0.4.4
 ;; Package-Requires: ((emacs "28.1"))
 ;; Keywords: files
 
